@@ -16,28 +16,23 @@ env:
   PYTHON_VERSION: 3.7     
 
 jobs:
-    requirements:
-        runs-on: ubuntu-latest
-
-        steps:
-        - uses: actions/checkout@v2
-        - name: Set up Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: '3.7'
-        - name: Install dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
-            python setup.py install
-
     test:
-        needs: requirements
 
         runs-on: ubuntu-latest
     
         steps:
         - uses: actions/checkout@v2
+
+        - name: Set up Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '3.7'
+
+        - name: Install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+            python setup.py install
 
         - name: Run pytest
           run: |
