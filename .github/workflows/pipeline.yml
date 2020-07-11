@@ -31,61 +31,61 @@ jobs:
             python setup.py requirements
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    test:
-        needs: requirements
+    # test:
+    #     needs: requirements
 
-        runs-on: ubuntu-latest
+    #     runs-on: ubuntu-latest
     
-        steps:
-        - uses: actions/checkout@v2
+    #     steps:
+    #     - uses: actions/checkout@v2
 
-       # - name: Run pytest
-        #run: |
-         # pip install pytest
-        #  pytest demoapp/tests/
+    #    # - name: Run pytest
+    #     #run: |
+    #      # pip install pytest
+    #     #  pytest demoapp/tests/
     
-        - name: Test docker
-            run: docker build . --file Dockerfile
+    #     - name: Test docker
+    #         run: docker build . --file Dockerfile
     
-    build:
-        needs: test
+    # build:
+    #     needs: test
     
-        runs-on: ubuntu-latest
-        if: github.event_name == 'push'
+    #     runs-on: ubuntu-latest
+    #     if: github.event_name == 'push'
 
-        steps:
-        - uses: actions/checkout@v2
+    #     steps:
+    #     - uses: actions/checkout@v2
 
-        - name: Build package
-            run: python setup.py sdist bdist_wheel
+    #     - name: Build package
+    #         run: python setup.py sdist bdist_wheel
     
-        - name: Build image
-            run: docker build . --file Dockerfile --tag $IMAGE_NAME
+    #     - name: Build image
+    #         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
-    release:
-        needs: build
+    # release:
+    #     needs: build
     
-        runs-on: ubuntu-latest
-        if: github.event_name == 'push'
+    #     runs-on: ubuntu-latest
+    #     if: github.event_name == 'push'
     
-        - name: Push image
-            run: |
-            IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+    #     - name: Push image
+    #         run: |
+    #         IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
             
-            # Change all uppercase to lowercase
-            IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+    #         # Change all uppercase to lowercase
+    #         IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
     
-            # Strip git ref prefix from version
-            VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+    #         # Strip git ref prefix from version
+    #         VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
     
-            # Strip "v" prefix from tag name
-            [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+    #         # Strip "v" prefix from tag name
+    #         [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
     
-            # Use Docker `latest` tag convention
-            [ "$VERSION" == "master" ] && VERSION=latest
+    #         # Use Docker `latest` tag convention
+    #         [ "$VERSION" == "master" ] && VERSION=latest
     
-            echo IMAGE_ID=$IMAGE_ID
-            echo VERSION=$VERSION
+    #         echo IMAGE_ID=$IMAGE_ID
+    #         echo VERSION=$VERSION
     
-            docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-            docker push $IMAGE_ID:$VERSION
+    #         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+    #         docker push $IMAGE_ID:$VERSION
