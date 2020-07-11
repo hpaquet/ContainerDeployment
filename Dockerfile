@@ -4,7 +4,7 @@ COPY . /demoapp
 
 WORKDIR /demoapp
 
-RUN python /analytic_resources/setup.py requirements
+RUN python /setup.py requirements
 
 RUN python /demoapp/run_container.py
 
