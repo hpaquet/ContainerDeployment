@@ -7,6 +7,7 @@ WORKDIR /demoapp
 RUN python /analytic_resources/setup.py requirements
 
 RUN python /demoapp/run_container.py
-RUN pip install -r /analytic_resources/requirements.txt
+
+RUN pip install -r /requirements.txt
 
 CMD [ "python", "/demoapp/run_container.py" ]
