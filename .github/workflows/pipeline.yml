@@ -39,9 +39,8 @@ jobs:
         steps:
         - uses: actions/checkout@v2
 
-        - name: Test with pytest
-        run: |
-            pytest
+        - name: Run pytest
+        run: pytest demoapp/tests/
     
         - name: Test docker
             run: docker build . --file Dockerfile
