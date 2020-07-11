@@ -41,7 +41,6 @@ jobs:
 
         - name: Run pytest
           run: |
-            pip install pytest
             pytest demoapp/tests/
     
         - name: Test docker
