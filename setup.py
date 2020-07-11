@@ -9,6 +9,10 @@ here = pathlib.Path(__file__).parent.resolve()
 with open(os.path.join(here, 'README.md')) as f:
     long_description = f.read()
 
+# Get the long description from the README file
+with open(os.path.join(here, 'requirements.txt')) as f:
+    requirements = f.read().split('\n')
+
 
 # Set version
 MAJOR = 0
@@ -18,10 +22,7 @@ MICRO = 0
 VERSION = "{}.{}.{}".format(MAJOR,MINOR,MICRO)
 
 # Dependencies
-INSTALL_REQUIRES = [
-    'pandas',
-    'numpy',
-]
+INSTALL_REQUIRES = requirements
 
 SETUP_REQUIRES = [
 ]
