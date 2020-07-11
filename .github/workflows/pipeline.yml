@@ -39,10 +39,10 @@ jobs:
         steps:
         - uses: actions/checkout@v2
 
-        - name: Run pytest
-        run: |
-          pip install pytest
-          pytest demoapp/tests/
+       # - name: Run pytest
+        #run: |
+         # pip install pytest
+        #  pytest demoapp/tests/
     
         - name: Test docker
             run: docker build . --file Dockerfile
