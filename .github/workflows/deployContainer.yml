@@ -1,14 +1,14 @@
 name: Deploy ARM Template
 
 on:
-		release:
-    	types:
-      	- published
-    	paths:
-      	- ".github/workflows/deployContainer.yml"
-      	- "templates/azuredeploy.json"
+    # release:
+    # 	types:
+    #   	- published
+    # 	paths:
+    #   	- ".github/workflows/deployContainer.yml"
+    #   	- "templates/azuredeploy.json"
 
-  	pull_request:
+    pull_request:
 
 env:
     TEMPLATE_PATH: ./templates/azuredeploy.json
