@@ -6,4 +6,6 @@ WORKDIR /demoapp
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "/demoapp/run_container.py" ]
+RUN python setup.py install
+
+CMD [ "python", "./demoapp/run_container.py" ]

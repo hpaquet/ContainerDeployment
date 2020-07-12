@@ -1,1 +1,1 @@
-import demoapp.app
+from demoapp.app import *
